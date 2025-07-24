@@ -43,7 +43,7 @@ new_engine <- function(.alphabet = alphabet(), .config = new_config()) {
         "Use `alphabet()` for a standard base64 alphabet."
       )
     )
-  } else if (!inherits(.config, "GeneralPurpose")) {
+  } else if (!inherits(.config, "GeneralPurposeConfig")) {
     stop(
       paste(
         "`.config` is not an object of class 'engine_config'.\n" ,
