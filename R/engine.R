@@ -36,14 +36,14 @@ engine <- function(which = "standard") {
 #' @rdname engine
 new_engine <- function(.alphabet = alphabet(), .config = new_config()) {
 
-  if (!inherits(.alphabet, "alphabet")) {
+  if (!inherits(.alphabet, "Alphabet")) {
     stop(
       paste(
         "`.alphabet` is not an object of class 'alphabet'.\n" ,
         "Use `alphabet()` for a standard base64 alphabet."
       )
     )
-  } else if (!inherits(.config, "engine_config")) {
+  } else if (!inherits(.config, "GeneralPurpose")) {
     stop(
       paste(
         "`.config` is not an object of class 'engine_config'.\n" ,
