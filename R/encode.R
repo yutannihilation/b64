@@ -68,7 +68,7 @@ decode_as_string <- function(what, newline = "\n", eng = engine()) {
     stop("`newline` must be a scalar character vector")
   }
 
-  decode_as_string_(what, newline, eng)
+  decode_as_string_(what, eng, newline)
 }
 
 

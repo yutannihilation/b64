@@ -38,11 +38,11 @@ new_config <- function(
     padding_mode
   )
 
-  structure(res, class = "engine_config")
+  res
 }
 
 #' @export
-print.engine_config <- function(x, ...) {
+print.GeneralPurposeConfig <- function(x, ...) {
   y <- print_config_(x)
   cat("<engine_config>\n")
   invisible(x)

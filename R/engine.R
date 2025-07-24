@@ -29,21 +29,21 @@
 engine <- function(which = "standard") {
   provided <- c("standard", "standard_no_pad", "url_safe", "url_safe_no_pad")
   match.arg(which, choices = provided)
-  structure(engine_(which), class = "engine")
+  engine_(which)
 }
 
 #' @export
 #' @rdname engine
 new_engine <- function(.alphabet = alphabet(), .config = new_config()) {
 
-  if (!inherits(.alphabet, "alphabet")) {
+  if (!inherits(.alphabet, "Alphabet")) {
     stop(
       paste(
         "`.alphabet` is not an object of class 'alphabet'.\n" ,
         "Use `alphabet()` for a standard base64 alphabet."
       )
     )
-  } else if (!inherits(.config, "engine_config")) {
+  } else if (!inherits(.config, "GeneralPurposeConfig")) {
     stop(
       paste(
         "`.config` is not an object of class 'engine_config'.\n" ,
@@ -52,12 +52,11 @@ new_engine <- function(.alphabet = alphabet(), .config = new_config()) {
     )
   }
 
-  res <- new_engine_(.alphabet, .config)
-  structure(res, class = "engine")
+  new_engine_(.alphabet, .config)
 }
 
 #' @export
-print.engine <- function(x, ...) {
+print.GeneralPurpose <- function(x, ...) {
   cat("<engine>")
   invisible(x)
 }
