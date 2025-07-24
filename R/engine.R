@@ -29,7 +29,7 @@
 engine <- function(which = "standard") {
   provided <- c("standard", "standard_no_pad", "url_safe", "url_safe_no_pad")
   match.arg(which, choices = provided)
-  structure(engine_(which), class = "engine")
+  engine_(which)
 }
 
 #' @export
@@ -52,12 +52,11 @@ new_engine <- function(.alphabet = alphabet(), .config = new_config()) {
     )
   }
 
-  res <- new_engine_(.alphabet, .config)
-  structure(res, class = "engine")
+  new_engine_(.alphabet, .config)
 }
 
 #' @export
-print.engine <- function(x, ...) {
+print.GeneralPurpose <- function(x, ...) {
   cat("<engine>")
   invisible(x)
 }

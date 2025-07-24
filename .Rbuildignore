@@ -16,3 +16,5 @@
 README.Rmd
 README.md
 ^\.vscode$
+
+^src/rust/\.cargo$

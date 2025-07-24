@@ -34,7 +34,7 @@ alphabet <- function(which = "standard") {
     which,
     choices = c("standard", "bcrypt", "bin_hex", "crypt", "imap_mutf7", "url_safe")
   )
-  structure(alphabet_(which), class = "alphabet")
+  alphabet_(which)
 }
 
 #' @export
@@ -49,12 +49,12 @@ new_alphabet <- function(chars) {
     )
   }
 
-  structure(new_alphabet_(chars), class = "alphabet")
+  new_alphabet_(chars)
 }
 
 
 #' @export
-print.alphabet <- function(x, ...) {
+print.Alphabet <- function(x, ...) {
   cat("<alphabet>\n")
   cat(get_alphabet_(x))
   invisible(x)
@@ -62,6 +62,6 @@ print.alphabet <- function(x, ...) {
 
 
 #' @export
-as.character.alphabet <- function(x, ...) {
+as.character.Alphabet <- function(x, ...) {
   get_alphabet_(x)
 }
