@@ -66,7 +66,7 @@ cfg <- if (is_debug) "debug" else "release"
 # webR-related
 .toolchain <- ifelse(is_wasm, "+nightly", "") # Use nightly toolchain for -Z flags
 .rustflags <- ifelse(is_wasm, "-Zdefault-visibility=hidden", "")
-.cargoflags <- ifelse(is_wasm, "-Zbuild-std", "")
+.cargoflags <- ifelse(is_wasm, "-Zbuild-std=std,core", "")
 
 # read in the Makevars.in file checking
 is_windows <- .Platform[["OS.type"]] == "windows"
