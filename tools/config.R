@@ -70,7 +70,7 @@ cfg <- if (is_debug) "debug" else "release"
   "-Zdefault-visibility=hidden -Zemscripten-wasm-eh",
   ""
 )
-.cargoflags <- ifelse(is_wasm, "-Zbuild-std=panic_abort,std", "")
+.cargoflags <- ifelse(is_wasm, "-Zbuild-std=panic_unwind,std", "")
 
 # read in the Makevars.in file checking
 is_windows <- .Platform[["OS.type"]] == "windows"
