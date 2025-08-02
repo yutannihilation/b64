@@ -63,6 +63,11 @@ cfg <- if (is_debug) "debug" else "release"
 # there may be use cases later where this can be adapted or expanded
 .target <- ifelse(is_wasm, paste0("--target=", webr_target), "")
 
+# webR-related
+.toolchain <- ifelse(is_wasm, "+nightly", "") # Use nightly toolchain for -Z flags
+.rustflags <- ifelse(is_wasm, "-Zdefault-visibility=hidden", "")
+.cargoflags <- ifelse(is_wasm, "-Zbuild-std=std", "")
+
 # read in the Makevars.in file checking
 is_windows <- .Platform[["OS.type"]] == "windows"
 
@@ -94,7 +99,10 @@ new_txt <- gsub("@CRAN_FLAGS@", .cran_flags, mv_txt) |>
   gsub("@PROFILE@", .profile, x = _) |>
   gsub("@CLEAN_TARGET@", .clean_targets, x = _) |>
   gsub("@LIBDIR@", .libdir, x = _) |>
-  gsub("@TARGET@", .target, x = _)
+  gsub("@TARGET@", .target, x = _) |>
+  gsub("@TOOLCHAIN@", .toolchain, x = _) |>
+  gsub("@RUSTFLAGS@", .rustflags, x = _) |>
+  gsub("@CARGOFLAGS@", .rustflags, x = _)
 
 message("Writing `", mv_ofp, "`.")
 con <- file(mv_ofp, open = "wb")

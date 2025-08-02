@@ -30,7 +30,7 @@ $(STATLIB):
 
 	export CARGO_HOME=$(CARGOTMP) && \
 	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
-	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo build @CRAN_FLAGS@ --lib @PROFILE@ --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR) @TARGET@
+	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs @RUSTFLAGS@" cargo @TOOLCHAIN@ build @CRAN_FLAGS@ --lib @PROFILE@ --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR) @TARGET@ @CARGOFLAGS@
 
 	# Always clean up CARGOTMP
 	rm -Rf $(CARGOTMP);
