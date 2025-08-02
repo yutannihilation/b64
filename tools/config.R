@@ -65,7 +65,11 @@ cfg <- if (is_debug) "debug" else "release"
 
 # webR-related
 .toolchain <- ifelse(is_wasm, "+nightly", "") # Use nightly toolchain for -Z flags
-.rustflags <- ifelse(is_wasm, "-Zdefault-visibility=hidden", "")
+.rustflags <- ifelse(
+  is_wasm,
+  "-Zdefault-visibility=hidden -Zemscripten-wasm-eh",
+  ""
+)
 .cargoflags <- ifelse(is_wasm, "-Zbuild-std=panic_abort,std", "")
 
 # read in the Makevars.in file checking

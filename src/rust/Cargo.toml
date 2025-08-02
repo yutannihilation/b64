@@ -20,4 +20,3 @@ lto = true
 codegen-units = 1
 
 [profile.webr]
-panic = "abort"
