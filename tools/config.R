@@ -102,7 +102,7 @@ new_txt <- gsub("@CRAN_FLAGS@", .cran_flags, mv_txt) |>
   gsub("@TARGET@", .target, x = _) |>
   gsub("@TOOLCHAIN@", .toolchain, x = _) |>
   gsub("@RUSTFLAGS@", .rustflags, x = _) |>
-  gsub("@CARGOFLAGS@", .rustflags, x = _)
+  gsub("@CARGOFLAGS@", .cargoflags, x = _)
 
 message("Writing `", mv_ofp, "`.")
 con <- file(mv_ofp, open = "wb")
