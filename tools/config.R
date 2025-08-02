@@ -46,6 +46,7 @@ is_wasm <- identical(R.version$platform, webr_target)
 # print to terminal to inform we are building for webr
 if (is_wasm) {
   message("Building for WebR")
+  .profile <- "--profile webr"
 }
 
 # we check if we are making a debug build or not
@@ -66,7 +67,7 @@ cfg <- if (is_debug) "debug" else "release"
 # webR-related
 .toolchain <- ifelse(is_wasm, "+nightly", "") # Use nightly toolchain for -Z flags
 .rustflags <- ifelse(is_wasm, "-Zdefault-visibility=hidden", "")
-.cargoflags <- ifelse(is_wasm, "-Zbuild-std=std", "")
+.cargoflags <- ifelse(is_wasm, "-Zbuild-std=panic_abort,std", "")
 
 # read in the Makevars.in file checking
 is_windows <- .Platform[["OS.type"]] == "windows"
