@@ -14,6 +14,17 @@ vendor_exists <- file.exists("src/rust/vendor.tar.xz")
 is_not_cran <- env_not_cran != ""
 is_debug <- env_debug != ""
 
+# We specify this target when building for webR
+webr_target <- "wasm32-unknown-emscripten"
+
+# here we check if the platform we are building for is webr
+is_wasm <- identical(R.version$platform, webr_target)
+
+# print to terminal to inform we are building for webr
+if (is_wasm) {
+  message("Building for WebR")
+}
+
 if (is_debug) {
   # if we have DEBUG then we set not cran to true
   # CRAN is always release build
@@ -28,26 +39,14 @@ if (!is_not_cran) {
 # we set cran flags only if NOT_CRAN is empty and if
 # the vendored crates are present.
 .cran_flags <- ifelse(
-  !is_not_cran && vendor_exists,
+  !is_not_cran && vendor_exists && !is_wasm,
   "-j 2 --offline",
   ""
 )
 
 # when DEBUG env var is present we use `--debug` build
-.profile <- ifelse(is_debug, "", "--release")
+.profile <- ifelse(is_debug, ifelse(is_wasm, "--profile webr", ""), "--release")
 .clean_targets <- ifelse(is_debug, "", "$(TARGET_DIR)")
-
-# We specify this target when building for webR
-webr_target <- "wasm32-unknown-emscripten"
-
-# here we check if the platform we are building for is webr
-is_wasm <- identical(R.version$platform, webr_target)
-
-# print to terminal to inform we are building for webr
-if (is_wasm) {
-  message("Building for WebR")
-  .profile <- "--profile webr"
-}
 
 # we check if we are making a debug build or not
 # if so, the LIBDIR environment variable becomes:
